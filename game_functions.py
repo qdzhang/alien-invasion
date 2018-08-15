@@ -4,6 +4,8 @@ from time import sleep
 
 from bullet import Bullet
 from alien import Alien
+from button import Button
+from game_stats import GameStats
 
 def check_keydown_events(event, ai_settings, screen, ship, bullets):
     """响应按键"""
@@ -44,7 +46,7 @@ def fire_bullet(ai_settings, screen, ship, bullets):
         bullets.add(new_bullet)
 
 
-def update_screen(ai_setting, screen, ship, aliens, bullets):
+def update_screen(ai_setting, screen, ship, aliens, bullets, play_button):
     """更新屏幕上的图像，并切换到新屏幕"""
     # 每次循环都重绘屏幕
     screen.fill(ai_setting.bg_color)
@@ -55,6 +57,10 @@ def update_screen(ai_setting, screen, ship, aliens, bullets):
 
     ship.blitme()
     aliens.draw(screen)
+
+    # 如果游戏处于非活动状态，就绘制play按钮
+    if not stats.game_active:
+        play_button.draw_button()
 
     # 让最近绘制的屏幕可见
     pygame.display.flip()
