@@ -154,15 +154,15 @@ def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
 
 def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
     """响应被外星人撞到的飞船"""
-    # 将ship_left减1
-    stats.ship_left -= 1
+    # 将ships_left减1
+    stats.ships_left -= 1
 
     # 清空外星人列表和子弹
     aliens.empty()
     bullets.empty()
 
     # 创建一群新的外星人，并将飞船放到屏幕的底端中央
-    creat_fleet(ai_settings, screen, ship, aliens)
+    create_fleet(ai_settings, screen, ship, aliens)
     ship.center_ship()
 
     # 暂停
