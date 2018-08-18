@@ -43,9 +43,13 @@ def check_events(ai_settings, screen, stats, play_button, ship, aliens, bullets)
 
 
 def check_play_botton(ai_settings, screen, stats, play_button, 
-    mouse_x, mouse_y):
+    ship, aliens, bullets, mouse_x, mouse_y):
     """在玩家单击play时开始游戏"""
-    if play_button.rect.collidepoint(mouse_x, mouse_y):
+    button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
+    if button_clicked and not stats.game_active:
+        # 隐藏光标
+        pygame.mouse.set_visible(False)
+
         # 重置游戏统计信息
         stats.reset_stats()
         stats.game_active = True
@@ -179,7 +183,7 @@ def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
     check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets)
 
 
-def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
+def ship_hit(ai_settings, screen, stats, ship, aliens, bullets):
     """响应被外星人撞到的飞船"""
     if stats.ships_left > 0:
         # 将ships_left减1
@@ -198,6 +202,7 @@ def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
 
     else:
         stats.game_active = False
+        pygame.mouse.set_visible(True)
 
 
 def check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets):
